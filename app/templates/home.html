@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+
+    <main class="container">
+        
+        <!-- COLONNE GAUCHE : FORMULAIRE -->
+        <section class="panel form-panel">
+            <div class="panel-content">
+                <h1>Nouvelle tâche</h1>
+                <p class="lead">Planifiez vos objectifs avec clarté.</p>
+                
+                <form method="POST" class="task-form">
+                    <div class="field">
+                        <label for="title">Titre</label>
+                        <input type="text" id="title" name="title" placeholder="Ex: Réunion projet" required>
+                    </div>
+                    
+                    <div class="field">
+                        <label for="description">Description</label>
+                        <textarea id="description" name="description" placeholder="Détails optionnels..." rows="3"></textarea>
+                    </div>
+                    
+                    <div class="field">
+                        <label for="due_date">Échéance</label>
+                        <input type="date" id="due_date" name="due_date">
+                    </div>
+                    
+                    <button type="submit" class="btn-primary">
+                        <span>Ajouter</span>
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5v14"/>
+                        </svg>
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <!-- COLONNE DROITE : LISTE DES TÂCHES -->
+        <section class="panel tasks-panel">
+            <div class="panel-header">
+                <h2>Mes tâches</h2>
+                <span class="task-count">{{ tasks|length }}</span>
+            </div>
+            
+            <div class="tasks-scroll">
+                <ul class="tasks-list">
+                    {% for task in tasks %}
+                        <li class="task-item">
+                            <div class="task-content">
+                                <strong class="task-title">{{ task.title }}</strong>
+                                {% if task.description %}
+                                    <p class="task-desc">{{ task.description }}</p>
+                                {% endif %}
+                                <div class="task-actions">
+                            </div>
+                            {% if task.due_date %}
+                            <time class="task-date" datetime="{{ task.due_date }}">
+                                <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="3" y="4" width="18" height="18" rx="2"/>
+                                    <path d="M16 2v4M8 2v4M3 10h18"/>
+                                </svg>
+                                {{ task.due_date }}
+                            </time>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+                
+                {% if not tasks %}
+                <div class="empty-state">
+                    <svg class="empty-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+                    </svg>
+                    <p>Aucune tâche pour le moment</p>
+                </div>
+                {% endif %}
+            </div>
+        </section>
+
+    </main>
+
+</body>
+</html>
