@@ -44,23 +44,24 @@ def home():
     return render_template("home.html", tasks=tasks)
 
 
-@app.route("/toggle/<int:task_id>")
-def toggle(task_id):
+@app.route("/toggle/<int:task_id>", methods=["POST"])
+def toggle_done(task_id):
     task = Task.query.get_or_404(task_id)
     task.done = not task.done
     db.session.commit()
     return redirect(url_for("home"))
 
 
-@app.route("/delete/<int:task_id>")
-def delete(task_id):
+@app.route("/delete/<int:task_id>", methods=["POST"])
+def delete_task(task_id):
     task = Task.query.get_or_404(task_id)
-    db.session.delete(task)
-    db.session.commit()
+    if task:
+        db.session.delete(task)
+        db.session.commit()
     return redirect(url_for("home"))    
 
 @app.route("/edit/<int:task_id>", methods=["GET", "POST"])
-def edit(task_id):
+def update_task(task_id):
     task = Task.query.get_or_404(task_id)
 
     if request.method == "POST":
@@ -76,8 +77,8 @@ def edit(task_id):
         db.session.commit()
         return redirect(url_for("home"))
 
-    return render_template("edit.html", task=task)
-()
+    return render_template("edit_task.html", task=task)
+
 # with app.app_context():
 #     db.create_all()
 

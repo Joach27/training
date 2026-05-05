@@ -319,6 +319,78 @@ input:focus, textarea:focus {
     }
 }
 
+/* ===== CONTENEUR PILL ACTIONS ===== */
+.task-actions {
+    display: inline-flex;
+    align-items: center;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 3px;
+    gap: 2px;
+    margin-top: 10px;
+    width: fit-content;
+}
+
+.inline-form {
+    margin: 0;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+}
+
+/* ===== BOUTONS D'ACTION ===== */
+.action-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 10px;
+    background: transparent;
+    color: var(--text-muted);
+    font-size: 0.72rem;
+    font-weight: 500;
+    text-decoration: none;
+    border: none;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: all var(--transition);
+    white-space: nowrap;
+    line-height: 1;
+}
+
+.action-btn svg {
+    width: 14px;
+    height: 14px;
+    stroke-width: 1.8;
+}
+
+/* Hover states */
+.action-btn:hover {
+    background: var(--border);
+    color: var(--text);
+}
+
+.action-btn.danger:hover {
+    background: #fee2e2;
+    color: #dc2626;
+}
+
+/* Focus accessibility */
+.action-btn:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+}
+
+/* ===== ÉTAT "DONE" (optionnel) ===== */
+.task-item.completed {
+    opacity: 0.6;
+}
+.task-item.completed .task-title {
+    text-decoration: line-through;
+    color: var(--text-muted);
+}
+
+
 /* ===== DARK MODE ===== */
 @media (prefers-color-scheme: dark) {
     :root {
@@ -338,5 +410,22 @@ input:focus, textarea:focus {
     
     .task-count {
         background: #2a2a2a;
+    }
+
+    /* Scrollbar adaptée au sombre */
+    .tasks-scroll::-webkit-scrollbar-thumb {
+        background: #444;
+    }
+    .tasks-scroll::-webkit-scrollbar-thumb:hover {
+        background: #666;
+    }
+
+    .action-btn.danger:hover {
+        background: rgba(220, 38, 38, 0.15);
+        color: #fca5a5;
+    }
+    .task-actions {
+        background: rgba(255, 255, 255, 0.05);
+        border-color: #333;
     }
 }

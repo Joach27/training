@@ -1,0 +1,49 @@
+/* edit.css */
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 60px 40px;
+    display: flex;
+    flex-direction: column;
+}
+
+.container h1 {
+    font-size: 2rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    margin-bottom: 32px;
+    color: var(--text);
+}
+
+form { display: grid; gap: 24px; }
+
+.actions {
+    display: flex; align-items: center; gap: 14px;
+    margin-top: 12px; padding-top: 20px; border-top: 1px solid var(--border);
+}
+
+form button[type="submit"] {
+    padding: 14px 24px; background: var(--accent); color: #fff;
+    border: none; border-radius: var(--radius); font-size: 0.95rem;
+    font-weight: 500; cursor: pointer; transition: all var(--transition);
+}
+form button[type="submit"]:hover { background: var(--accent-hover); transform: translateY(-1px); }
+form button[type="submit"]:active { transform: translateY(0); }
+
+.btn-secondary {
+    display: inline-flex; align-items: center; justify-content: center;
+    padding: 14px 24px; background: transparent; color: var(--text-muted);
+    border: 1px solid var(--border); border-radius: var(--radius);
+    font-size: 0.95rem; font-weight: 500; text-decoration: none;
+    cursor: pointer; transition: all var(--transition);
+}
+.btn-secondary:hover { background: var(--bg); color: var(--text); border-color: #9ca3af; }
+
+textarea { min-height: 120px; }
+
+@media (max-width: 768px) {
+    .container { padding: 40px 24px; }
+    .container h1 { font-size: 1.5rem; margin-bottom: 24px; }
+    .actions { flex-direction: column; gap: 10px; }
+    form button[type="submit"], .btn-secondary { width: 100%; }
+}

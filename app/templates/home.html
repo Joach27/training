@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To-Do List</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="{{ url_for('static', filename='index.js') }}"></script>
 </head>
 <body>
 
@@ -52,14 +53,14 @@
             <div class="tasks-scroll">
                 <ul class="tasks-list">
                     {% for task in tasks %}
-                        <li class="task-item">
+                        <li class="task-item {% if task.is_done %}completed{% endif %}">
                             <div class="task-content">
                                 <strong class="task-title">{{ task.title }}</strong>
                                 {% if task.description %}
                                     <p class="task-desc">{{ task.description }}</p>
                                 {% endif %}
-                                <div class="task-actions">
                             </div>
+
                             {% if task.due_date %}
                             <time class="task-date" datetime="{{ task.due_date }}">
                                 <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -69,6 +70,29 @@
                                 {{ task.due_date }}
                             </time>
                             {% endif %}
+
+                            <!-- ACTIONS EN PILL -->
+                            <div class="task-actions">
+                                <a href="{{ url_for('update_task', task_id=task.id) }}" class="action-btn" title="Modifier">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                                    <span>Update</span>
+                                </a>
+
+
+                                <form method="POST" action="{{ url_for('toggle_done', task_id=task.id) }}" class="inline-form task-done-form" data-id="{{ task.id }}">
+                                    <button type="submit" class="action-btn {{ 'completed-btn' if task.is_done else '' }}" title="Basculer l'état">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                                        <span>{{ 'Undo' if task.is_done else 'Done' }}</span>
+                                    </button>
+                                </form>
+
+                                <form method="POST" action="{{ url_for('delete_task', task_id=task.id) }}" class="inline-form">
+                                    <button type="submit" class="action-btn danger" title="Supprimer">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/></svg>
+                                        <span>Delete</span>
+                                    </button>
+                                </form>
+                            </div>
                         </li>
                     {% endfor %}
                 </ul>
