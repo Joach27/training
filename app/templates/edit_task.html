@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Edit Task</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+</head>
+<body>
+	<div class="container">
+		<h1>Edit Task</h1>
+
+		<form method="post" action="{{ url_for('update_task', task_id=task.id) }}">
+			<div class="field">
+				<label for="title">TITRE</label><br>
+				<input
+					type="text"
+					id="title"
+					name="title"
+					value="{{ task.title }}"
+					placeholder="Enter task title"
+					required
+				/> 
+			</div><br><br>
+
+			<div class="field">
+				<label for="description">DESCRIPTION</label><br>
+				<textarea
+					id="description"
+					name="description"
+					placeholder="Describe the task"
+					style="resize: none;"
+				>   {{ task.description }}</textarea>
+			</div><br><br>
+
+
+			<div class="field">
+				<label for="due_date">ECHEANCE</label><br>
+				<input
+					type="date"
+					id="due_date"
+					name="due_date"
+					value="{{ task.due_date }}"
+				/>
+			</div><br><br>
+
+			<div class="actions">
+				<button type="submit">Save Changes</button>
+				<a class="btn-secondary" href="{{ url_for('home') }}">Cancel</a>
+			</div>
+		</form>
+	</div>
+</body>
+</html>
