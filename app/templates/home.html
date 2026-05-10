@@ -14,6 +14,9 @@
         <!-- COLONNE GAUCHE : FORMULAIRE -->
         <section class="panel form-panel">
             <div class="panel-content">
+                {% if user %}
+                <span class="welcome-message">Bonjour, {{ user.username }} !</span>
+                {% endif %}
                 <h1>Nouvelle tâche</h1>
                 <p class="lead">Planifiez vos objectifs avec clarté.</p>
                 
@@ -47,7 +50,17 @@
         <section class="panel tasks-panel">
             <div class="panel-header">
                 <h2>Mes tâches</h2>
-                <span class="task-count">{{ tasks|length }}</span>
+                <div class="header-right">
+                    <span class="task-count">{{ tasks|length }}</span>
+                    <a href="{{ url_for('logout') }}" class="btn-logout" title="Déconnexion">
+                        <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                            <polyline points="16 17 21 12 16 7"></polyline>
+                            <line x1="21" y1="12" x2="9" y2="12"></line>
+                        </svg>
+                        <span>Déconnexion</span>
+                    </a>
+                </div>
             </div>
             
             <div class="tasks-scroll">
