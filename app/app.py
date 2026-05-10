@@ -76,27 +76,53 @@ def toggle_done(task_id):
 
 @app.route("/delete/<int:task_id>", methods=["POST"])
 def delete_task(task_id):
+    if "user_id" not in session:
+        return redirect(url_for("login"))
+
     task = Task.query.get_or_404(task_id)
-    if task:
-        db.session.delete(task)
-        db.session.commit()
+
+    if task.user_id != session["user_id"]:
+        flash("Action non autorisée", "error")
+        return redirect(url_for("home"))
+
+    db.session.delete(task)
+    db.session.commit()
+
+    flash("Tâche supprimée", "success")
+
     return redirect(url_for("home"))    
 
 @app.route("/edit/<int:task_id>", methods=["GET", "POST"])
 def update_task(task_id):
+
+    if "user_id" not in session:
+        return redirect(url_for("login"))
+
     task = Task.query.get_or_404(task_id)
 
+    if task.user_id != session["user_id"]:
+        flash("Action non autorisée", "error")
+        return redirect(url_for("home"))
+
     if request.method == "POST":
+
         task.title = request.form["title"]
         task.description = request.form["description"]
 
         due_date_str = request.form["due_date"]
+
         if due_date_str:
-            task.due_date = datetime.strptime(due_date_str, "%Y-%m-%d").date()
+            task.due_date = datetime.strptime(
+                due_date_str,
+                "%Y-%m-%d"
+            ).date()
         else:
             task.due_date = None
 
         db.session.commit()
+
+        flash("Tâche mise à jour", "success")
+
         return redirect(url_for("home"))
 
     return render_template("edit_task.html", task=task)
