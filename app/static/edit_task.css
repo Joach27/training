@@ -1,0 +1,58 @@
+
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+
+
+
+body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+		font-family: "Inter", sans-serif;
+    	font-optical-sizing: auto;
+    	font-weight: weight;
+   		font-style: normal;
+            
+    }
+	.container{
+            border: 1px solid black;
+            border-radius: 10px;
+            width: 50%;
+            height: 85%;
+	}
+
+	.field1{
+		border: 1px solid black;
+		border-radius: 5px;
+		margin-right: 10px;
+		margin-left: 10px ;
+		padding-top: 25px;
+	}
+
+	.field1 input,.field1 label,.field1 textarea{
+		width: 80%;
+		margin-left: 15px;
+		padding: 7px;
+	}
+	input, textarea{
+		border-radius: 10px;
+	}
+	h1{
+		text-align: center;
+	}
+	.actions{
+		display: flex;
+		justify-content: space-between;
+	}
+	.actions button{
+		margin-left: 15px;
+		margin-bottom: 15px;
+		background-color: #c8f04c;
+		border-radius: 10px;
+	}
+	.actions a{
+		margin-right: 15px;
+	}
+	

@@ -2,6 +2,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static', filename = 'home.css')}}">
+
     <title>To do list</title>
 </head>
 <body>
@@ -15,39 +17,50 @@
                     <div class="form1">
                         <label for="">TITRE</label><br>
                         <input type="text" name="title" placeholder="Titre" required>
-                        <br><br>
+                        <br><br><br>
                         <label for="">DESCRIPTION</label><br>
                         <textarea type="text" name="description" placeholder="Description"></textarea>
-                        <br><br>
+                        <br><br><br>
                         <label for="">ECHEANCE</label><br>
                         <input type="date" name="due_date" placeholder="">
-                        <br><br>
+                        <br><br><br>
                         <button type="submit">Ajouter +</button> 
                     </div>  
                 </form>
         </div>
         
         <div class="right">
-            <h1 class="h1">Mes tâches</h1> <a class="deconnexion" href="{{url_for('logout')}}">Déconnexion</a> <hr>
-             <ul>
+
+            <h1 class="h1">Mes tâches ({{ tasks|length }}) <a class="deconnexion" href="{{url_for('logout')}}">Déconnexion</a></h1>  <hr>
+            <ul>
                 {% for task in tasks %}
                     <li>
-                        <strong>{{task.title}}</strong> <br>
-                        {{task.description}} <br>
-                        {{task.due_date}} 
-                        {% if task.done == False%}
-                        <p>Pas terminé</p>
-                        {% else %}
-                        <p>Terminé</p>
-                        {% endif %}
-                        <form action="{{url_for('delete',task_id = task.id)}}" method="POST">
-                            <button>Supprimer</button>
-                        </form>
-                        <a href="{{ url_for('update_task', task_id = task.id) }}">Modifier</a>
-                        <form action="{{url_for('toggle_done',task_id = task.id)}}" method="POST">
-                            <button>Update</button>
-                        </form>
-
+                        <div class="task-content">
+                            <div class="task-head">
+                                <strong>{{task.title}}</strong> <br>
+                                {{task.description}} <br>
+                                {{task.due_date}} 
+                            </div>
+                            <div class="task-done">
+                                {% if task.done == False%}
+                                <p style="background-color: #F1C40F;">Pas terminé</p>
+                                {% else %}
+                                <p style="background-color: #2ECC71;">Terminé</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="task-action">
+                            
+                                <form action="{{url_for('delete',task_id = task.id)}}" method="POST">
+                                    <button>Supprimer</button>
+                                </form>
+                                <form action="{{ url_for('update_task', task_id = task.id) }}" method ="GET"> 
+                                    <button>Modifier</button></form>
+                                <form action="{{url_for('toggle_done',task_id = task.id)}}" method="POST">
+                                    <button>Update</button>
+                                </form>
+                            
+                        </div>
                     </li>
                 {% endfor %}
             </ul>
@@ -55,52 +68,6 @@
     </div>
 
     <style>
-        .container{
-            display: flex;
-            height: auto;
-
-       } 
-
-       .left{
-            width: 30%;
-            background-color: rgb(202, 220, 213);
-       }
-
-       .right{
-            width: 70%;
-            background-color: rgb(185, 179, 198);
-       }
-        h1{
-            text-align: center;
-        }
-       
-        input,textarea, .form1 button{
-            border: none;
-            border-radius: 5px;
-            padding: 10px;
-            width: 99%;
-            
-        }
-
-        .form1 button{
-            background-color: black;
-            color: white;
-        }
-
-        textarea{
-            resize: none;
-        }
-
-
-        .form1{
-            margin: 20px;
-            margin-top: 40px;
-        
-        }
-        .deconnexion{
-            text-align: right;
-        }
-
        
     </style>
 </body>
