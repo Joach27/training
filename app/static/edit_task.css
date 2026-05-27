@@ -3,56 +3,120 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
 
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: "Inter", sans-serif;
 
+}
 
 body {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-		font-family: "Inter", sans-serif;
-    	font-optical-sizing: auto;
-    	font-weight: weight;
-   		font-style: normal;
-            
-    }
-	.container{
-            border: 1px solid black;
-            border-radius: 10px;
-            width: 50%;
-            height: 85%;
-	}
 
-	.field1{
-		border: 1px solid black;
-		border-radius: 5px;
-		margin-right: 10px;
-		margin-left: 10px ;
-		padding-top: 25px;
-	}
+	min-height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+    background: #f4f7fb;
 
-	.field1 input,.field1 label,.field1 textarea{
-		width: 80%;
-		margin-left: 15px;
-		padding: 7px;
-	}
-	input, textarea{
-		border-radius: 10px;
-	}
-	h1{
-		text-align: center;
-	}
-	.actions{
-		display: flex;
-		justify-content: space-between;
-	}
-	.actions button{
-		margin-left: 15px;
-		margin-bottom: 15px;
-		background-color: #c8f04c;
-		border-radius: 10px;
-	}
-	.actions a{
-		margin-right: 15px;
-	}
-	
+	padding: 20px;
+}
+
+.container {
+	width: 100%;
+	max-width: 700px;	
+
+	padding: 30px;
+
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	background-color: #fff;
+	border-radius: 8px;
+
+	display: flex;
+	flex-direction: column;
+
+	gap: 20px;
+
+	height: 100%;
+}
+
+.edit-form {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+
+
+}
+
+.field {
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+	width: 100%;
+}
+
+.field input, .field textarea {
+	padding: 14px 16px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	font-size: 16px;
+	text-align: left;
+	background: #f9fafb;
+	outline: none;
+	width: 100%;
+}
+
+.field input:focus, .field textarea:focus {
+	border-color: #007bff;
+	box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.field textarea {
+	min-height: 50px;
+	resize: none;
+}
+
+
+.edit-header {
+	margin-bottom: 20px;
+	align-self: center;
+}
+
+.edit-header h1 {
+	font-size: 24px;
+	color: #333;
+	text-align: center;
+}
+
+.actions {
+	display: flex;
+	justify-content: space-between;
+	gap: 10px;
+
+}
+
+.actions button, 
+.actions .btn-secondary {
+	flex: 1;
+	padding: 10px 20px;
+	border: none;
+	border-radius: 4px;
+	font-size: 16px;
+	cursor: pointer;
+}
+
+.actions button {
+	background-color: #007bff;
+	color: #fff;
+}
+
+.actions button:hover {
+	background-color: #0056b3;
+}
+
+.btn-secondary {
+	background-color: #e2e8f0;
+	color: #333;
+	text-decoration: none;
+	text-align: center;
+}

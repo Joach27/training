@@ -1,104 +1,147 @@
- 
  @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
- body{
+body{
     font-family: "Inter", sans-serif;
+    background-color: #f4f7fb;
+}
 
- }
- 
- 
- .container{
-            display: flex;
-            height: auto;
+.container{
+    display: flex;
+    height: 100vh;
+}
 
-       } 
+.left{
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid #dbe2ea;
+    padding: 20px;
+    width: 30%;
+    height: 100%;
+}
 
-       .left{
-            width: 30%;
-           
-            border: 0.5px solid rgb(162, 160, 160);
-       }
+.create-form{
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    gap: 15px;
+}
 
-       .right{
-            width: 70%;
-            
-       }
-        h1{
-            text-align: center;
-    
-        }
-       
-        input,textarea, .form1 button{
-            border-color: #c8f04c;
-            border-radius: 5px;
-            padding: 10px;
-            width: 99%;
-            outline: none;
-            
-        }
+.titre input , .description textarea, .date input{
+    padding: 14px 16px;
+    border: 1px solid #dbe2ea;
+    border-radius: 4px;
+    width: 100%;
+    background-color: #f8fafc;
+}
 
-        .form1 button{
-            background-color: #c8f04c;
-            color: black;
-            cursor: pointer;
-            transition: 0.5s;
-        }
+.titre input:focus , .description textarea:focus, .date input:focus{
+    outline: none;
+    border-color: #007BFF;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
 
-        textarea{
-            resize: none;
-        }
+.btn button{
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 16px;
+}
 
+.right {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    width: 70%;
+    gap: 20px;
+}
 
-        .form1{
-            margin: 20px;
-            margin-top: 40px;
-        
-        }
-        .deconnexion{
-            position: relative;
-            left: 250px;
-            bottom: 15px;
-            text-align: right;
-            font-size: 20px;
-            border: 1px solid black;
-        }
-        .task-action {
-            display: flex;
-            width: 25%;
-            border: none solid black;
-            padding: 2px;
-            border-radius: 5px;
-            justify-content: space-between;
-            margin-top: 15px;
-            position: relative;
-            margin-left: 10px;
-            cursor: pointer;
-            
-           
-           
-        }
+.right ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
 
-        .task-content{
-            display: flex;
-            justify-content: space-between;
-            margin-right: 10px;
-            margin-top: 10px;
-        }
+.task-action {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
 
-        li{
-            border: 1px solid black;
-            margin: 8px;
-            list-style: none;
-        }
+.task-action button {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
 
-        .task-head{
-            margin-left: 10px;
-        }
-        a{
-            text-decoration: none;
-        }
-        
+.task-action .update {
+    background-color: #28a745;
+    color: white;
+}
+.task-action .delete {
+    background-color: #dc3545;
+    color: white;
+}
 
-        
+.task-action .toggle {
+    background-color: #007BFF;
+    color: white;
+}
 
-       
+.not-done {
+    background-color: #f8d7da;
+    padding: 5px 10px;
+    border-radius: 999px;
+    width: fit-content;
+}
+.done {
+    background-color: #d4edda;
+    padding: 5px 10px;
+    border-radius: 999px;
+    width: fit-content;
+}
+
+.task-item {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    border: 1px solid #dbe2ea;
+    border-radius: 8px;
+    padding: 10px;
+    background-color: #f8fafc;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.task-item:hover {
+    border-color: #dbe2ea;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.task-content {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+/*  ------------------- HEADER ------------------- */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 10px;
+    border-bottom: 1px solid #dbe2ea;
+}
+
+.header a{
+    text-decoration: none;
+    color: #007BFF;
+    font-weight: 500;
+}

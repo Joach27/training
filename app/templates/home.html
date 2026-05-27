@@ -13,51 +13,58 @@
     <div class="container">
         <div class="left">
             <h1>Ajouter une nouvelle tâche</h1>
-                <form method="POST">
-                    <div class="form1">
+            <form method="POST" class="create-form">
+                    <div class="titre">
                         <label for="">TITRE</label><br>
                         <input type="text" name="title" placeholder="Titre" required>
-                        <br><br><br>
+                    </div>
+                    <div class="description">
                         <label for="">DESCRIPTION</label><br>
                         <textarea type="text" name="description" placeholder="Description"></textarea>
-                        <br><br><br>
+                    </div>
+                    <div class="date">
                         <label for="">ECHEANCE</label><br>
                         <input type="date" name="due_date" placeholder="">
-                        <br><br><br>
+                    </div>
+                    <div class="btn">
                         <button type="submit">Ajouter +</button> 
-                    </div>  
-                </form>
+                    </div>
+            </form>
         </div>
         
         <div class="right">
+            <header class="header">
+                <span class="h4">Bienvenue {{user.full_name}}</span>
+                <h3 class="h2">Mes tâches ({{ tasks|length }}) </h3>
+                <a class="deconnexion" href="{{url_for('logout')}}">Déconnexion</a>
+            </header>
 
-            <h1 class="h1">Mes tâches ({{ tasks|length }}) <a class="deconnexion" href="{{url_for('logout')}}">Déconnexion</a></h1>  <hr>
             <ul>
                 {% for task in tasks %}
-                    <li>
+                    <li class="task-item">
                         <div class="task-content">
                             <div class="task-head">
-                                <strong>{{task.title}}</strong> <br>
-                                {{task.description}} <br>
+                                <strong>{{task.title}}</strong>
+                                <p class="task-desc"> {{task.description}}</p>
                                 {{task.due_date}} 
                             </div>
                             <div class="task-done">
                                 {% if task.done == False%}
-                                <p style="background-color: #F1C40F;">Pas terminé</p>
+                                <p class="not-done">Pas terminé</p>
                                 {% else %}
-                                <p style="background-color: #2ECC71;">Terminé</p>
+                                <p class="done">Terminé</p>
                                 {% endif %}
                             </div>
                         </div>
                         <div class="task-action">
                             
                                 <form action="{{url_for('delete',task_id = task.id)}}" method="POST">
-                                    <button>Supprimer</button>
+                                    <button class="delete">Supprimer</button>
                                 </form>
                                 <form action="{{ url_for('update_task', task_id = task.id) }}" method ="GET"> 
-                                    <button>Modifier</button></form>
+                                    <button class="update" >Modifier</button></form>
                                 <form action="{{url_for('toggle_done',task_id = task.id)}}" method="POST">
-                                    <button>Update</button>
+                                    <button class="toggle">Update</button>
                                 </form>
                             
                         </div>
