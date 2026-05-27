@@ -4,52 +4,53 @@
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>Edit Task</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}" />
     <link rel="stylesheet" href="{{ url_for('static', filename='edit_task.css') }}" />
 </head>
 
 <body>
 	<div class="container">
-		<h1>Modification</h1>
+		<header class="edit-header">
+			<h1>Modification</h1>
+			<p>Modifiez les détails de votre tâche ci-dessous.</p>
+		</header>
 
-		<form method="post" action="{{ url_for('update_task', task_id=task.id) }}">
-			<div class="field1">
-				<div class="field">
-					<label for="title">TITRE</label><br>
-					<input
-						type="text"
-						id="title"
-						name="title"
-						value="{{ task.title }}"
-						placeholder="Enter task title"
-						required
-					/> 
-				</div><br><br>
+		<form class="edit-form" method="post" action="{{ url_for('update_task', task_id=task.id) }}">
+			<div class="field">
+				<label for="title">TITRE</label>
+				<input
+					type="text"
+					id="title"
+					name="title"
+					value="{{ task.title }}"
+					placeholder="Enter task title"
+					required
+				/> 
+			</div>
 
-				<div class="field">
-					<label for="description">DESCRIPTION</label><br>
-					<textarea
-						id="description"
-						name="description"
-						placeholder="Describe the task"
-						style="resize: none;"
-					>   {{ task.description }}</textarea>
-				</div><br><br>
+			<div class="field">
+				<label for="description">DESCRIPTION</label>
+				<textarea
+					id="description"
+					name="description"
+					placeholder="Describe the task"
+					> {{ task.description }}</textarea>
+			</div>
 
 
-				<div class="field">
-					<label for="due_date">ECHEANCE</label><br>
-					<input
-						type="date"
-						id="due_date"
-						name="due_date"
-						value="{{ task.due_date }}"
-					/>
-				</div><br><br>
+			<div class="field">
+				<label for="due_date">ECHEANCE</label>
+				<input
+					type="date"
+					id="due_date"
+					name="due_date"
+					value="{{ task.due_date }}"
+				/>
+			</div>
 
-				<div class="actions">
-					<button type="submit">Save Changes</button>
-					<a class="btn-secondary" href="{{ url_for('home') }}">Cancel</a>
-				</div>
+			<div class="actions">
+				<button type="submit">Save Changes</button>
+				<a class="btn-secondary" href="{{ url_for('home') }}">Cancel</a>
 			</div>
 		</form>
 	</div>

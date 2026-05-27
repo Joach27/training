@@ -2,7 +2,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{url_for('static',filename='login.css')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename='auth.css')}}">
     <title>login</title>
 
     <style>
@@ -11,8 +11,8 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
+    <div class="auth-container">
+        <div class="auth-header">
             <h1>Connexion</h1>
             <p>Connectez-vous pour accéder à vos tâches.</p>
         </div>
@@ -32,19 +32,20 @@
             {% endwith %}
         </div>
 
-        <form action="", method="POST">
-            <div class="form">
-                <label for="">ADRESSE EMAIL</label><br>
+        <form action="", method="POST" class="auth-form">
+            <div class="input-group">
+                <label for="">ADRESSE EMAIL</label>
                 <input type="email" name="email" id="" placeholder="example@gmail.com" required>
-                <br><br>
-                <label for="">MOT DE PASSE</label><br>
-                <input type="password" name="password" id="" placeholder="mot de passe" required>
-                <br><br>
-                <button type="submit">Se connecter</button>
             </div>
+
+            <div class="input-group">
+                <label for="">MOT DE PASSE</label>
+                <input type="password" name="password" id="" placeholder="mot de passe" required>
+            </div>
+
+            <button type="submit">Se connecter</button>
         </form>
-        <div class="footer">
-             _______________ou_____________
+        <div class="auth-footer">
             <p>
                 Pas encore de compte?
                 <a href="{{url_for('register')}}">S'inscrire</a>
