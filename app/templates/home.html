@@ -1,0 +1,81 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static', filename = 'home.css')}}">
+
+    <title>To do list</title>
+</head>
+<body>
+
+    
+
+    <div class="container">
+        <div class="left">
+            <h1>Ajouter une nouvelle tâche</h1>
+            <form method="POST" class="create-form">
+                    <div class="titre">
+                        <label for="">TITRE</label><br>
+                        <input type="text" name="title" placeholder="Titre" required>
+                    </div>
+                    <div class="description">
+                        <label for="">DESCRIPTION</label><br>
+                        <textarea type="text" name="description" placeholder="Description"></textarea>
+                    </div>
+                    <div class="date">
+                        <label for="">ECHEANCE</label><br>
+                        <input type="date" name="due_date" placeholder="">
+                    </div>
+                    <div class="btn">
+                        <button type="submit">Ajouter +</button> 
+                    </div>
+            </form>
+        </div>
+        
+        <div class="right">
+            <header class="header">
+                <span class="h4">Bienvenue {{user.full_name}}</span>
+                <h3 class="h2">Mes tâches ({{ tasks|length }}) </h3>
+                <a class="deconnexion" href="{{url_for('logout')}}">Déconnexion</a>
+            </header>
+
+            <ul>
+                {% for task in tasks %}
+                    <li class="task-item">
+                        <div class="task-content">
+                            <div class="task-head">
+                                <strong>{{task.title}}</strong>
+                                <p class="task-desc"> {{task.description}}</p>
+                                {{task.due_date}} 
+                            </div>
+                            <div class="task-done">
+                                {% if task.done == False%}
+                                <p class="not-done">Pas terminé</p>
+                                {% else %}
+                                <p class="done">Terminé</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="task-action">
+                            
+                                <form action="{{url_for('delete',task_id = task.id)}}" method="POST">
+                                    <button class="delete">Supprimer</button>
+                                </form>
+                                <form action="{{ url_for('update_task', task_id = task.id) }}" method ="GET"> 
+                                    <button class="update" >Modifier</button></form>
+                                <form action="{{url_for('toggle_done',task_id = task.id)}}" method="POST">
+                                    <button class="toggle">Update</button>
+                                </form>
+                            
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>    
+    </div>
+
+    <style>
+       
+    </style>
+</body>
+</html>

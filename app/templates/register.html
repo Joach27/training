@@ -1,0 +1,54 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static',filename='auth.css')}}">
+    <title>register</title>
+
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-header">
+            <h1>Créer un compte</h1>
+            <p>Gérez vos tâches simplement.</p>
+        </div>
+        <div class="messages"> 
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <p class="{{ category }}">
+                            {{ message }}
+                        </p>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        </div>
+
+        <form method="POST" class="auth-form">
+            <div class="input-group">
+                <label for="">NOM COMPLET</label>
+                <input type="text" name="full_name" placeholder="nom complet" required>
+            </div>
+
+            <div class="input-group">
+                <label for="">ADRESSE EMAIL</label>
+                <input type="email" name="email" id="" placeholder="example@gmail.com" required>
+            </div>
+
+            <div class="input-group">
+                <label for="">MOT DE PASSE</label>
+                <input type="password" name="password" id="" required>
+            </div>
+
+            <button type="submit">Créer mon compte</button>
+        </form>
+        <div class="auth-footer">
+            <p>
+                Déjà un compte?
+                <a href="{{url_for('login')}}">Se connecter</a>
+            </p>
+        </div>
+    </div>
+    
+</body>
+</html>

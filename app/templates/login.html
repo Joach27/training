@@ -1,0 +1,56 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static',filename='auth.css')}}">
+    <title>login</title>
+
+    <style>
+        
+        
+    </style>
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-header">
+            <h1>Connexion</h1>
+            <p>Connectez-vous pour accéder à vos tâches.</p>
+        </div>
+
+        <div class="message">
+            <!-- ─── Affichage des messages flash Flask ─── -->
+            <!-- get_flashed_messages retourne les messages envoyés via flash() dans app.py -->
+            <!-- with_categories=True permet de récupérer la catégorie ("error", "success") -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <p class="{{ category }}">
+                            {{ message }}
+                        </p>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        </div>
+
+        <form action="", method="POST" class="auth-form">
+            <div class="input-group">
+                <label for="">ADRESSE EMAIL</label>
+                <input type="email" name="email" id="" placeholder="example@gmail.com" required>
+            </div>
+
+            <div class="input-group">
+                <label for="">MOT DE PASSE</label>
+                <input type="password" name="password" id="" placeholder="mot de passe" required>
+            </div>
+
+            <button type="submit">Se connecter</button>
+        </form>
+        <div class="auth-footer">
+            <p>
+                Pas encore de compte?
+                <a href="{{url_for('register')}}">S'inscrire</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>
