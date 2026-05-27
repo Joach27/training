@@ -1,6 +1,7 @@
 from flask import Flask, render_template,request, redirect, url_for, session, flash
 from flask_sqlalchemy import SQLAlchemy
 from datetime import date,datetime
+from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
 
@@ -8,6 +9,8 @@ app.secret_key = "ma_cle_super_secrete_123"
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config["TEMPLATES_AUTO_RELOAD"] = True
+
 db = SQLAlchemy(app)
 
 class Task(db.Model):
@@ -25,6 +28,12 @@ class User(db.Model):
     email = db.Column(db.String(30), nullable=False)
     password = db.Column(db.String(15), nullable=False)
     tasks = db.relationship('Task', backref='owner', lazy=True, cascade="all, delete-orphan")
+
+    def set_password(self,password):
+        self.password = generate_password_hash(password)
+
+    def check_password(self,password):
+        return check_password_hash(self.password, password)
 
 
 
@@ -61,8 +70,8 @@ def home():
         return redirect(url_for("home"))
     
     # Récupérer uniquement les tâches de l'utilisateur connecté
-    tasks = Task.query.filter_by(user_id=user.id).all()    
-    return render_template('home.html',tasks = tasks)
+    tasks = Task.query.filter_by(user_id=user.id).order_by(Task.id.desc()).all() # ← .desc() = plus récent en premier 
+    return render_template('home.html',tasks = tasks, user = user)
 
 
 @app.route("/delete/<int:task_id>",methods=["POST","GET"])
@@ -144,11 +153,8 @@ def register():
             return redirect(url_for("login"))
         else:
             # Créer le nouvel utilisateur
-            new_user = User(
-                full_name=full_name,
-                email=email,
-                password=password
-            )
+            new_user = User( full_name=full_name, email=email,password=password)
+            new_user.set_password(password)
             db.session.add(new_user) 
             db.session.commit()
 
@@ -171,7 +177,7 @@ def login():
         # Chercher l'utilisateur par email et mot de passe
         user = User.query.filter_by(email=email, password=password).first()
 
-        if user  :
+        if user and check_password_hash(password) :
             session["user_id"] = user.id
             flash("Connecté avec succès !", "success")
             return redirect(url_for("home"))
@@ -190,8 +196,8 @@ def logout():
 
 
 if (__name__ == '__main__'):
-    with app.app_context():
+    #with app.app_context():
           #db.drop_all()   
-          db.create_all()
+          #db.create_all()
 
     app.run(debug = True)
