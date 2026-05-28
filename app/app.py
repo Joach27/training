@@ -1,3 +1,5 @@
+import os
+
 from flask import Flask, render_template, request, redirect, url_for, jsonify, session, flash
 from flask_sqlalchemy import SQLAlchemy
 from datetime import date, datetime
@@ -6,7 +8,12 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///tasks.db'
+
+BASE_DIR = os.path.abspath(os.path.dirname(__file__))
+
+app.config['SQLALCHEMY_DATABASE_URI'] = \
+    'sqlite:///' + os.path.join(BASE_DIR, 'instance', 'tasks.db')
+
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 app.secret_key = 'une_cle_secrete'
@@ -214,12 +221,8 @@ def test_relation():
         "task_owner": fetched_task.owner.username
     }), 200
 
-# with app.app_context():
-#     db.create_all()
+
 
 if __name__ == "__main__":
-    # with app.app_context():
-    #     db.drop_all()
-    #     db.create_all()
     app.run(debug=True)
 
