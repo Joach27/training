@@ -58,13 +58,8 @@ def home():
             due_date = None
 
         # Créer une tâche en Base
-        new_task = Task(
-            title = title,
-            description = description,
-            due_date = due_date,
-            done = False,
-            user_id = user.id
-        )
+        new_task = Task(title = title,description = description,due_date = due_date,done = False,user_id = user.id)
+    
         db.session.add(new_task)
         db.session.commit()
         return redirect(url_for("home"))
@@ -153,7 +148,7 @@ def register():
             return redirect(url_for("login"))
         else:
             # Créer le nouvel utilisateur
-            new_user = User( full_name=full_name, email=email,password=password)
+            new_user = User( full_name=full_name,email=email,password=password)
             new_user.set_password(password)
             db.session.add(new_user) 
             db.session.commit()
@@ -167,7 +162,7 @@ def register():
 
 
 #Connexion
-@app.route("/login", methods=["GET","Post"])
+@app.route("/login", methods=["GET","POST"])
 def login():
 
     if request.method == "POST":
@@ -175,9 +170,9 @@ def login():
         password  = request.form.get("password")
     
         # Chercher l'utilisateur par email et mot de passe
-        user = User.query.filter_by(email=email, password=password).first()
+        user = User.query.filter_by(email=email).first()
 
-        if user and check_password_hash(password) :
+        if user and user.check_password(password) :
             session["user_id"] = user.id
             flash("Connecté avec succès !", "success")
             return redirect(url_for("home"))
