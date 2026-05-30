@@ -10,7 +10,7 @@ app.secret_key = "ma_cle_super_secrete_123"
 
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 app.config['SQLALCHEMY_DATABASE_URI'] = \
-'sqlite:///' + os.path.join(BASE_DIR, 'instance', 'tasks.db')
+'sqlite:///' + os.path.join(BASE_DIR, 'instance', 'db.sqlite')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config["TEMPLATES_AUTO_RELOAD"] = True
 
