@@ -2,12 +2,15 @@ from flask import Flask, render_template,request, redirect, url_for, session, fl
 from flask_sqlalchemy import SQLAlchemy
 from datetime import date,datetime
 from werkzeug.security import generate_password_hash, check_password_hash
+import os
 
 app = Flask(__name__)
 
 app.secret_key = "ma_cle_super_secrete_123"
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite'
+BASE_DIR = os.path.abspath(os.path.dirname(__file__))
+app.config['SQLALCHEMY_DATABASE_URI'] = \
+'sqlite:///' + os.path.join(BASE_DIR, 'instance', 'tasks.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config["TEMPLATES_AUTO_RELOAD"] = True
 
